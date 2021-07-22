@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CakeShop.DataAccess.Data;
+using CakeShop.DataAccess.Repository.IRepository;
+using CakeShop.DataAccess.Repository;
 
 namespace CakeShop
 {
@@ -36,6 +38,8 @@ namespace CakeShop
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
         }
 
@@ -65,7 +69,8 @@ namespace CakeShop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=Admin}/{controller=Cake}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
