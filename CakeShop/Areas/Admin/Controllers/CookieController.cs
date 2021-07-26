@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace CakeShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CakeController : Controller
+    public class CookieController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CakeController(IUnitOfWork unitOfWork)
+        public CookieController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -23,60 +23,60 @@ namespace CakeShop.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
-            Cake cake =  new Cake();
+            Cookie cookie =  new Cookie();
             if(id==null)
             {
                 //Create 
-                return View(cake);
+                return View(cookie);
             } 
 
             //Edit
-            cake = _unitOfWork.Cake.Get(id.GetValueOrDefault());
+            cookie = _unitOfWork.Cookie.Get(id.GetValueOrDefault());
 
-            if(cake == null)
+            if(cookie == null)
             {
                 return NotFound();
             }
-            return View(cake);
+            return View(cookie);
         }
 
         #region API CALL
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allCakes = _unitOfWork.Cake.GetAll();
-            return Json(new { data = allCakes });
+            var allCookies = _unitOfWork.Cookie.GetAll();
+            return Json(new { data = allCookies });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Cake cake)
+        public IActionResult Upsert(Cookie cookie)
         {
             if(ModelState.IsValid)
             {
-                if(cake.Id == 0)
+                if(cookie.Id == 0)
                 {
-                    _unitOfWork.Cake.Add(cake);
+                    _unitOfWork.Cookie.Add(cookie);
                 }
                 else
                 {
-                    _unitOfWork.Cake.Update(cake);
+                    _unitOfWork.Cookie.Update(cookie);
                 }
                 _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cake);
+            return View(cookie);
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _unitOfWork.Cake.Get(id);
+            var objFromDb = _unitOfWork.Cookie.Get(id);
 
             if(objFromDb==null)
             {
                 return Json(new { success=false, message="Error while deleting" });
             }
-            _unitOfWork.Cake.Remove(objFromDb);
+            _unitOfWork.Cookie.Remove(objFromDb);
             _unitOfWork.Save();
 
             return Json(new { success=true, message="Delete Successful" });

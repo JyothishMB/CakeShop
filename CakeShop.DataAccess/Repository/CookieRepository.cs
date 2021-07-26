@@ -5,20 +5,20 @@ using CakeShop.Models;
 
 namespace CakeShop.DataAccess.Repository
 {
-    public class CakeRepository : Repository<Cake>, ICakeRepository
+    public class CookieRepository : Repository<Cookie>, ICookieRepository
     {
         private readonly ApplicationDbContext _db;
-        public CakeRepository(ApplicationDbContext db): base(db)
+        public CookieRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
-        public void Update(Cake cake)
+        public void Update(Cookie cookie)
         {
-            var objFromDb = _db.Cakes.FirstOrDefault(c => c.Id == cake.Id);
+            var objFromDb = _db.Cookies.FirstOrDefault(c => c.Id == cookie.Id);
 
             if(objFromDb!=null)
             {
-                objFromDb.Name = cake.Name;
+                objFromDb.Name = cookie.Name;
             }
         }
     }

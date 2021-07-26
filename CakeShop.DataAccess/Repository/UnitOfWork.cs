@@ -10,9 +10,12 @@ namespace CakeShop.DataAccess.Repository
         {
             _db = db;
             Cake = new CakeRepository(_db);
+            Cookie = new CookieRepository(_db);
             SP_Call = new SP_Call(_db);
         }
         public ICakeRepository Cake { get; private set; }
+
+        public ICookieRepository Cookie { get; private set; }
 
         public ISP_Call SP_Call { get; private set; }
 

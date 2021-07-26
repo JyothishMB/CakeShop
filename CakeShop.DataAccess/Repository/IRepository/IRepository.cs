@@ -7,7 +7,7 @@ namespace CakeShop.DataAccess.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {
-         T GetT(int id);
+         T Get(int id);
 
          IEnumerable<T> GetAll(
              Expression<Func<T, bool>> filter = null,

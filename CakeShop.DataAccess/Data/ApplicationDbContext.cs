@@ -15,5 +15,6 @@ namespace CakeShop.DataAccess.Data
         }
 
         public DbSet<Cake> Cakes { get; set; }
+        public DbSet<Cookie> Cookies { get; set; }
     }
 }

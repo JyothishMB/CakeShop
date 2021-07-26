@@ -68,7 +68,7 @@ namespace CakeShop.DataAccess.Repository
             return query.ToList();
         }
 
-        public T GetT(int id)
+        public T Get(int id)
         {
             return dbSet.Find(id);
         }
