@@ -12,6 +12,12 @@ namespace CakeShop.Infra.Data.Repository
         {
             _context = context;
         }
+
+        public Cake GetCake(int id)
+        {
+            return _context.Cakes.Find(id);
+        }
+
         public IEnumerable<Cake> GetCakes()
         {
             return _context.Cakes;

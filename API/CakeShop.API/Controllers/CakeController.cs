@@ -24,9 +24,15 @@ namespace CakeShop.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetCakes()
         {
             return Ok(_cakeService.GetCakesList());
+        }
+
+        [HttpGet("{id}", Name="GetCake")]
+        public IActionResult GetCake(int id)
+        {
+            return Ok(_cakeService.GetCakeInfoById(id));
         }
     }
 }

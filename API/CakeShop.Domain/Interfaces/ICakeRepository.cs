@@ -6,5 +6,6 @@ namespace CakeShop.Domain.Interfaces
     public interface ICakeRepository
     {
          IEnumerable<Cake> GetCakes();
+         Cake GetCake(int id);
     }
 }

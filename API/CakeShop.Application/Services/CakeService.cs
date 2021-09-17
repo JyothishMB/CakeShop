@@ -11,6 +11,19 @@ namespace CakeShop.Application.Services
         {
             _repository = repository;
         }
+
+        public CakeDto GetCakeInfoById(int id)
+        {
+            var cake = _repository.GetCake(id);
+            return new CakeDto()
+            {
+                Id = cake.Id,
+                Name = cake.Name,
+                Description = cake.Description,
+                Price = cake.Price
+            };
+        }
+
         public CakesListDto GetCakesList()
         {
             return new CakesListDto()
