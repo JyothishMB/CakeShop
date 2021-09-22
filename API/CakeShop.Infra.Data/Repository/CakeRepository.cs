@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CakeShop.Domain.Interfaces;
 using CakeShop.Domain.Models;
 using CakeShop.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace CakeShop.Infra.Data.Repository
 {
@@ -14,33 +15,36 @@ namespace CakeShop.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<Cake> AddAsync(Cake cake)
+        public async Task<Cake> Add(Cake cake)
         {
-            await _context.Cakes.AddAsync(cake);
+            _context.Cakes.Add(cake);
             await _context.SaveChangesAsync();
 
             return cake;
         }
 
-        public void Delete(Cake cake)
+        public async Task Delete(int id)
         {
-            _context.Cakes.Remove(cake);
-            _context.SaveChanges();
+            var caketodelete = await _context.Cakes.FindAsync(id);
+            _context.Cakes.Remove(caketodelete);
+            await _context.SaveChangesAsync();
         }
 
-        public Cake Get(int id)
+        public async Task<Cake> Get(int id)
         {
-            return _context.Cakes.Find(id);
+            var cake = await _context.Cakes.FindAsync(id);
+            return cake;
         }
 
-        public IEnumerable<Cake> GetAll()
+        public async Task<IEnumerable<Cake>> GetAll()
         {
-            return _context.Cakes;
+            var cakes = await _context.Cakes.ToListAsync();
+            return cakes;
         }
 
-        public void Update(Cake cake)
+        public async Task Update(Cake cake)
         {
-            var obj = _context.Cakes.Find(cake.Id);
+            var obj = await _context.Cakes.FindAsync(cake.Id);
 
             if(obj!=null)
             {
@@ -49,7 +53,7 @@ namespace CakeShop.Infra.Data.Repository
                 obj.Price = cake.Price;
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

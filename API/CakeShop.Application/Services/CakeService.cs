@@ -3,71 +3,53 @@ using CakeShop.Application.DTOs;
 using CakeShop.Application.Interfaces;
 using CakeShop.Domain.Interfaces;
 using CakeShop.Domain.Models;
+using AutoMapper;
 
 namespace CakeShop.Application.Services
 {
     public class CakeService : ICakeService
     {
         private readonly ICakeRepository _repository;
-        public CakeService(ICakeRepository repository)
+        private readonly IMapper _mapper;
+        public CakeService(ICakeRepository repository, IMapper mapper)
         {
+            _mapper = mapper;
             _repository = repository;
         }
 
         public async Task<CakeDto> AddCake(CakeDto cakeDto)
         {
-            var result = await _repository.AddAsync(new Cake(){ 
-                Name = cakeDto.Name,
-                Description = cakeDto.Description,
-                Price = cakeDto.Price
-             });
+            var caketoadd = _mapper.Map<Cake>(cakeDto);
 
-             var cakecreated = new CakeDto(){
-                 Name = result.Name,
-                 Description = result.Description,
-                 Price = result.Price,
-                 Id = result.Id
-             };
+            var result = await _repository.Add(caketoadd);
 
-            return cakecreated;
+            var addedCake = _mapper.Map<CakeDto>(result);
+
+            return addedCake;
         }
 
-        public void DeleteCake(CakeDto cakeDto)
+        public async Task DeleteCake(int id)
         {
-            _repository.Delete(new Cake(){ 
-                Name = cakeDto.Name,
-                Description = cakeDto.Description,
-                Price = cakeDto.Price
-             });
+            await _repository.Delete(id);
         }
 
-        public CakeDto GetCakeInfoById(int id)
+        public async Task<CakeDto> GetCakeInfoById(int id)
         {
-            var cake = _repository.Get(id);
-            return new CakeDto()
-            {
-                Id = cake.Id,
-                Name = cake.Name,
-                Description = cake.Description,
-                Price = cake.Price
-            };
+            var cake = await _repository.Get(id);
+            return _mapper.Map<CakeDto>(cake);
         }
 
-        public CakesListDto GetCakesList()
+        public async Task<CakesListDto> GetCakesList()
         {
             return new CakesListDto()
             {
-                Cakes = _repository.GetAll()
+                Cakes = await _repository.GetAll()
             };
         }
 
-        public void UpdateCake(CakeDto cakeDto)
+        public async Task UpdateCake(CakeDto cakeDto)
         {
-            _repository.Update(new Cake(){ 
-                Name = cakeDto.Name,
-                Description = cakeDto.Description,
-                Price = cakeDto.Price
-             });
+            await _repository.Update(_mapper.Map<Cake>(cakeDto));
         }
     }
 }

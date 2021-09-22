@@ -24,15 +24,19 @@ namespace CakeShop.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCakes()
+        public async Task<IActionResult> GetCakes()
         {
-            return Ok(_cakeService.GetCakesList());
+            return Ok(await _cakeService.GetCakesList());
         }
 
         [HttpGet("{id}", Name="GetCake")]
-        public IActionResult GetCake(int id)
+        public async Task<IActionResult> GetCake(int id)
         {
-            return Ok(_cakeService.GetCakeInfoById(id));
+            var caketoreturn = await _cakeService.GetCakeInfoById(id);
+            if(caketoreturn==null)
+                return NotFound();
+            
+            return Ok(caketoreturn);
         }
 
         [HttpPost]
@@ -43,6 +47,22 @@ namespace CakeShop.API.Controllers
             return Ok(result);
         }
 
-        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCake(int id)
+        {
+            await _cakeService.DeleteCake(id);
+            return Ok(new { message = "Cake deleted" });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, CakeDto cakeDto)
+        {
+            var caketoupdate = await _cakeService.GetCakeInfoById(id);
+            if(caketoupdate==null)
+                return NotFound();
+            cakeDto.Id = id;
+            await _cakeService.UpdateCake(cakeDto);
+            return Ok(new { message = "Cake updated" });
+        }
     }
 }
