@@ -34,5 +34,15 @@ namespace CakeShop.API.Controllers
         {
             return Ok(_cakeService.GetCakeInfoById(id));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCake(CakeDto cakeDto)
+        {
+            var result = await _cakeService.AddCake(cakeDto);
+
+            return Ok(result);
+        }
+
+        
     }
 }
