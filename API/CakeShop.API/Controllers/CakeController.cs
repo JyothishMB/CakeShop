@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CakeShop.Application.DTOs;
 using CakeShop.Application.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,7 +24,7 @@ namespace CakeShop.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("GetCakes")]
         public async Task<IActionResult> GetCakes()
         {
             return Ok(await _cakeService.GetCakesList());
@@ -39,7 +40,7 @@ namespace CakeShop.API.Controllers
             return Ok(caketoreturn);
         }
 
-        [HttpPost]
+        [HttpPost("AddCake")]
         public async Task<IActionResult> AddCake(CakeDto cakeDto)
         {
             var result = await _cakeService.AddCake(cakeDto);

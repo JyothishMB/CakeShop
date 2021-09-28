@@ -33,6 +33,7 @@ namespace CakeShop.API
             services.AddDbContext<CakeShopDbContext>(options => {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -56,6 +57,10 @@ namespace CakeShop.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
 
             app.UseAuthorization();
 
