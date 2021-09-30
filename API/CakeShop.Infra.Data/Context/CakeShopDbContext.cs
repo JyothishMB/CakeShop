@@ -1,12 +1,12 @@
 using CakeShop.Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CakeShop.Infra.Data.Context
 {
-    public class CakeShopDbContext : DbContext
+    public class CakeShopDbContext : IdentityDbContext
     {
-        public CakeShopDbContext(DbContextOptions<CakeShopDbContext> options)
-            :base(options)
+        public CakeShopDbContext(DbContextOptions options) : base(options)
         {
 
         }

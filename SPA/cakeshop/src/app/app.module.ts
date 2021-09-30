@@ -11,13 +11,19 @@ import { AddcakeComponent } from './Admin/addcake/addcake.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AuthComponent } from './Auth/Auth.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [					
     AppComponent,
       NavbarComponent,
       CakelistComponent,
-      AddcakeComponent
+      AddcakeComponent,
+      AuthComponent,
+      LoginComponent,
+      SignupComponent
    ],
   imports: [
     BrowserModule,

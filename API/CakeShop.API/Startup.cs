@@ -15,6 +15,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 namespace CakeShop.API
 {
@@ -33,6 +37,39 @@ namespace CakeShop.API
             services.AddDbContext<CakeShopDbContext>(options => {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<CakeShopDbContext>();
+
+            services.Configure<IdentityOptions>(options => {
+                options.Password.RequiredLength = 5;
+                options.Password.RequiredUniqueChars = 3;
+            });
+
+            var key = Encoding.ASCII.GetBytes("asjdklhasjkdhasjkhdsjkahdjksahdjksahdsjad");
+            services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x => {
+                x.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        return Task.CompletedTask;
+                    }
+                };
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
             services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
@@ -57,6 +94,7 @@ namespace CakeShop.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseCors(x => x.AllowAnyOrigin()
                         .AllowAnyMethod()

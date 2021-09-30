@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CakeShop.Application.DTOs;
 using CakeShop.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ namespace CakeShop.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class CakeController : ControllerBase
     {
         private readonly ILogger<CakeController> _logger;
@@ -25,12 +27,14 @@ namespace CakeShop.API.Controllers
         }
 
         [HttpGet("GetCakes")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCakes()
         {
             return Ok(await _cakeService.GetCakesList());
         }
 
         [HttpGet("{id}", Name="GetCake")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCake(int id)
         {
             var caketoreturn = await _cakeService.GetCakeInfoById(id);
