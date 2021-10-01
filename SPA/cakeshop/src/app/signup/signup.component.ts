@@ -25,7 +25,6 @@ export class SignupComponent implements OnInit {
   }
 
   Register(){
-    debugger;
     if(this.userRegistrationForm.valid){
       this.user = Object.assign({}, this.userRegistrationForm.value);
 
