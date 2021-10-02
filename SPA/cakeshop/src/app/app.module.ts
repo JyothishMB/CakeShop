@@ -14,16 +14,20 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AuthComponent } from './Auth/Auth.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
+import { UserService } from './_services/user.service';
+import { CakeService } from './_services/cake.service';
 
 @NgModule({
-  declarations: [					
+  declarations: [						
     AppComponent,
       NavbarComponent,
       CakelistComponent,
       AddcakeComponent,
       AuthComponent,
       LoginComponent,
-      SignupComponent
+      SignupComponent,
+      HomeComponent
    ],
   imports: [
     BrowserModule,
@@ -34,7 +38,10 @@ import { SignupComponent } from './signup/signup.component';
     HttpClientModule,
     BsDropdownModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    UserService,
+    CakeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

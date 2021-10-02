@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#" [routerLink]="['/home']">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/cakelist']">Cakes</a>
@@ -35,7 +35,19 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> -->
       <div class="d-flex">
-        <button class="btn btn-primary" [routerLink]="['/auth']">Sign In</button>
+        <button *ngIf="!userservice.decodedToken" class="btn btn-primary" [routerLink]="['/auth']">Sign In</button>
+        <div *ngIf="userservice.decodedToken" class="dropdown" dropdown>
+          <a class="dropdown-toggle text-light" dropdownToggle>
+            Welcome {{ userservice.currentUser.userName | titlecase }}
+          </a>
+    
+          <div class="dropdown-menu mt-3" *dropdownMenu>
+            <a class="dropdown-item"><i class="fa fa-user"></i>Edit Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+          </div>
+        </div>
+    
       </div>
     </div>
   </div>
