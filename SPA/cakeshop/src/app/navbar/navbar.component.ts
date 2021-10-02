@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userservice : UserService
+    , private router: Router) { }
 
   ngOnInit() {
+    debugger;
+    console.log(this.loggedIn());
+    console.log(this.userservice.decodedToken);
+  }
+
+  loggedIn(){
+    //const token = localStorage.getItem('token');
+    //return !!token;
+    debugger;
+    return this.userservice.loggedIn();
+  }
+
+  logout(){
+    debugger;
+    console.log(this.userservice);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.userservice.decodedToken = null;
+    this.userservice.currentUser = null;
+    this.router.navigate(['/cakelist']);
   }
 
 }

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   user : Loginmodel;
 
   constructor(private fb: FormBuilder
-    , private userservice: UserService
+    , public userservice: UserService
     , private router: Router) { }
 
   ngOnInit() {
@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
         .login(this.user)
         .subscribe((data : any) => {
           debugger;
-          localStorage.setItem("caketoken", data["token"]);
           this.router.navigate(['/cakelist']);
         });
     }

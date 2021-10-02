@@ -14,16 +14,18 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AuthComponent } from './Auth/Auth.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [					
+  declarations: [						
     AppComponent,
       NavbarComponent,
       CakelistComponent,
       AddcakeComponent,
       AuthComponent,
       LoginComponent,
-      SignupComponent
+      SignupComponent,
+      HomeComponent
    ],
   imports: [
     BrowserModule,
