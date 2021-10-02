@@ -10,7 +10,7 @@ import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   { path: "home", component:HomeComponent },
-  { path:"cakelist", component:CakelistComponent, canActivate: [AuthGuard], runGuardsAndResolvers: 'always' },
+  { path:"cakelist", component:CakelistComponent },
   { path:"addcake", component:AddcakeComponent, canActivate: [AuthGuard], runGuardsAndResolvers: 'always' },
   {
     path: 'auth', 
