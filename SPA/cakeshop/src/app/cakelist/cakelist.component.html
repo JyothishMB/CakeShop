@@ -1,44 +1,24 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <div class="card" style="width: 20rem;">
-        <img class="card-img-top" src="../../assets/cakes/cake4.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="row row-cols-auto">
+    <div *ngFor="let cake of cakes">
+      <div class="col">
+        <div class="card mb-4" style="width: 20rem;">
+          <img class="card-img-top" src="../../assets/cakes/cake4.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ cake.name }}</h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>{{ cake.description }}</td>
+                </tr>
+                <tr>
+                  <td>{{ cake.price | currency: 'INR':true }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card" style="width: 20rem;">
-        <img class="card-img-top" src="../../assets/cakes/cake3.jpeg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card" style="width: 20rem;">
-        <img class="card-img-top" src="../../assets/cakes/cake1.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card" style="width: 20rem;">
-        <img class="card-img-top" src="../../assets/cakes/cake2.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
+      </div> 
+    </div> 
   </div>
 </div>

@@ -16,14 +16,6 @@ export class CakeService {
   constructor(private http: HttpClient) { }
 
   addCake(cake : Cake){
-    /*
-    const headers = new HttpHeaders();
-    headers
-      .set('Content-Type', 'application/json; charset=utf-8')
-      .set('Access-Control-Allow-Origin' , '*',)
-
-    return this.http.post(this.baseUrl+'Cake/AddCake', cake, { headers: headers });
-    */
     return this.http.post(this.baseUrl+'Cake/AddCake', cake);
   }
 
