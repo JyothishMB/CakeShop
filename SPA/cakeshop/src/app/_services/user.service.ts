@@ -37,6 +37,8 @@ export class UserService {
             this.currentUser = user.user;
             // console.log(this.decodedToken);
           }
+        }, error => {
+          console.log('Service Error : '+error);
         })
       );
   }

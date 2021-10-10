@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
     , private router: Router) { }
 
   ngOnInit() {
-    debugger;
     console.log(this.loggedIn());
     console.log(this.userservice.decodedToken);
   }
@@ -22,12 +21,10 @@ export class NavbarComponent implements OnInit {
   loggedIn(){
     //const token = localStorage.getItem('token');
     //return !!token;
-    debugger;
     return this.userservice.loggedIn();
   }
 
   logout(){
-    debugger;
     console.log(this.userservice);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
