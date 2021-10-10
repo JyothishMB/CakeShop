@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -17,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { UserService } from './_services/user.service';
 import { CakeService } from './_services/cake.service';
+import { AuthInterceptor } from './Helpers/interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [						
@@ -40,7 +41,12 @@ import { CakeService } from './_services/cake.service';
   ],
   providers: [
     UserService,
-    CakeService
+    CakeService,
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptor, 
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
